@@ -1,0 +1,111 @@
+import random
+import time
+
+memory = {}
+
+responses = {
+    "hello": [
+        "Hello! I was just pretending to work.",
+        "Ah, my favorite human has arrived.",
+        "Greetings! My circuits are slightly less confused now."
+    ],
+
+    "how are you": [
+        "I'm running great! My imaginary hamster is powering my brain.",
+        "Fantastic. No bugs today... that I know of.",
+        "I'm alive! Which is impressive considering I was made of code."
+    ],
+
+    "joke": [
+        "Why do programmers hate nature? Too many bugs.",
+        "Why did the computer go to the doctor? It had a virus.",
+        "I told my computer I needed a break... it said 'No problem, I'll go to sleep.'"
+    ],
+
+    "bye": [
+        "Goodbye! Don't forget to save your work.",
+        "Leaving already? I'll just sit here and stare at the wall.",
+        "Farewell, human. Try not to press random buttons."
+    ]
+}
+
+
+def save_memory():
+    name = input("🤖 Before we begin, what is your name? ")
+    memory["name"] = name
+    print(f"Nice to meet you, {name}! I'll remember that.\n")
+
+
+def show_intro():
+    print("""
+================================
+      🤖 FunnyBot 3000
+================================
+
+Try saying:
+
+👋 hello
+😂 tell me a joke
+🧠 what do you remember?
+😎 how are you?
+❌ bye
+
+You can also tell me:
+"My name is Bob"
+
+================================
+""")
+
+
+def chatbot():
+    show_intro()
+    save_memory()
+
+    while True:
+        user = input("\nYou: ").lower()
+
+        # Save name
+        if "my name is" in user:
+            name = user.replace("my name is", "").strip()
+            memory["name"] = name
+            print(f"Bot: Got it! I'll remember you, {name}.")
+            continue
+
+        # Recall memory
+        if "what do you remember" in user:
+            if memory:
+                print("Bot: I remember:")
+                for key, value in memory.items():
+                    print(f"- {key}: {value}")
+            else:
+                print("Bot: My memory is emptier than my fridge.")
+            continue
+
+        # Use memory
+        if "what is my name" in user:
+            if "name" in memory:
+                print(f"Bot: Your name is {memory['name']}. I totally remembered that. 🤖")
+            else:
+                print("Bot: I don't know yet. Tell me!")
+            continue
+
+        # Normal responses
+        found = False
+
+        for key in responses:
+            if key in user:
+                print("Bot:", random.choice(responses[key]))
+                found = True
+                break
+
+        if not found:
+            print(random.choice([
+                "My brain needs a software update for that one.",
+                "I understand about 12% of that. The other 88% is buffering.",
+                "Interesting. I will write that down in my imaginary notebook."
+            ]))
+
+        time.sleep(1)
+
+
+chatbot()
