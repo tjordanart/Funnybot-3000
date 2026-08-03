@@ -1,8 +1,13 @@
-import random
-import time
+import random  # Used to randomly select responses
+import time    # Used to add delays for a more natural conversation flow
 
+
+# Stores information the chatbot learns during the conversation
 memory = {}
 
+
+# Pre-written responses organized by category.
+# The bot randomly selects a response from each category.
 responses = {
     "hello": [
         "Hello! I was just pretending to work.",
@@ -30,25 +35,50 @@ responses = {
 }
 
 
+def safe_input(prompt):
+    """
+    Gets user input safely.
+    If input is unavailable, the program exits cleanly.
+    """
+
+    try:
+        return input(prompt)
+
+    except EOFError:
+        print("\nBot: Looks like we ran out of things to say. Goodbye!")
+        raise SystemExit
+
+
 def save_memory():
-    name = input("🤖 Before we begin, what is your name? ")
+    """
+    Asks the user for their name and stores it in memory.
+    """
+
+    name = safe_input("Before we begin, what is your name? ")
+
+    # Save the user's name in the memory dictionary
     memory["name"] = name
+
     print(f"Nice to meet you, {name}! I'll remember that.\n")
 
 
 def show_intro():
+    """
+    Displays instructions when the chatbot starts.
+    """
+
     print("""
 ================================
-      🤖 FunnyBot 3000
+        FunnyBot 3000
 ================================
 
 Try saying:
 
-👋 hello
-😂 tell me a joke
-🧠 what do you remember?
-😎 how are you?
-❌ bye
+hello
+tell me a joke
+what do you remember?
+how are you?
+bye
 
 You can also tell me:
 "My name is Bob"
@@ -58,54 +88,99 @@ You can also tell me:
 
 
 def chatbot():
+    """
+    Main chatbot function.
+    Handles user input, memory storage, and responses.
+    """
+
     show_intro()
+
+    # Ask for the user's name before starting the conversation
     save_memory()
 
-    while True:
-        user = input("\nYou: ").lower()
 
-        # Save name
+    # Continue running until the user chooses to exit
+    while True:
+
+        # Convert input to lowercase so the bot can recognize
+        # commands regardless of capitalization
+        user = safe_input("\nYou: ").lower()
+
+
+        # Exit the chatbot
+        if user.strip() == "bye":
+            print("Bot:", random.choice(responses["bye"]))
+            break
+
+
+        # Detect if the user introduces themselves
         if "my name is" in user:
+
+            # Remove the phrase and keep only the name
             name = user.replace("my name is", "").strip()
+
+            # Store the updated name
             memory["name"] = name
+
             print(f"Bot: Got it! I'll remember you, {name}.")
             continue
 
-        # Recall memory
+
+        # Allow the user to view saved information
         if "what do you remember" in user:
+
             if memory:
                 print("Bot: I remember:")
+
+                # Display each saved memory item
                 for key, value in memory.items():
                     print(f"- {key}: {value}")
+
             else:
                 print("Bot: My memory is emptier than my fridge.")
+
             continue
 
-        # Use memory
+
+        # Allow the user to ask for their saved name
         if "what is my name" in user:
+
             if "name" in memory:
-                print(f"Bot: Your name is {memory['name']}. I totally remembered that. 🤖")
+                print(f"Bot: Your name is {memory['name']}. I totally remembered that.")
+
             else:
                 print("Bot: I don't know yet. Tell me!")
+
             continue
 
-        # Normal responses
+
+        # Check if the user's message matches a known category
         found = False
 
         for key in responses:
+
             if key in user:
+
+                # Select a random response from the matching category
                 print("Bot:", random.choice(responses[key]))
+
                 found = True
                 break
 
+
+        # If no matching response is found, provide a fallback message
         if not found:
+
             print(random.choice([
                 "My brain needs a software update for that one.",
                 "I understand about 12% of that. The other 88% is buffering.",
                 "Interesting. I will write that down in my imaginary notebook."
             ]))
 
+
+        # Short delay before the next response
         time.sleep(1)
 
 
+# Start the chatbot
 chatbot()
