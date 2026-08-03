@@ -30,6 +30,8 @@ Technologies Used
 
 Example Conversation
 
+Example output:
+
 ================================
         FunnyBot 3000
 ================================
@@ -44,7 +46,6 @@ You: what is my name
 Bot: Your name is Tyler. I totally remembered that.
 You: bye
 Bot: Goodbye! Don't forget to save your work.
-
 ⸻
 
 How to Run
