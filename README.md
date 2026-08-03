@@ -1,6 +1,6 @@
 FunnyBot 3000
 
-A simple conversational chatbot built in Python that uses keyword recognition, random responses, and basic memory functionality to create an interactive terminal experience.
+A simple conversational chatbot built in Python that uses keyword recognition, random responses, and basic memory functionality to create an interactive command-line experience.
 
 This project was created as a learning exercise to practice Python fundamentals including functions, dictionaries, loops, user input handling, and program logic.
 
@@ -28,24 +28,19 @@ Technologies Used
 
 ⸻
 
-Example Conversation
+How It Works
 
-Example output:
+FunnyBot 3000 starts by asking the user for their name and stores it in memory. During the conversation, the bot analyzes user input, matches keywords, and responds using a collection of randomized replies.
 
-================================
-        FunnyBot 3000
-================================
-Before we begin, what is your name?
-You: Tyler
-Nice to meet you, Tyler! I'll remember that.
-You: hello
-Bot: Greetings! My circuits are slightly less confused now.
-You: tell me a joke
-Bot: Why do programmers hate nature? Too many bugs.
-You: what is my name
-Bot: Your name is Tyler. I totally remembered that.
-You: bye
-Bot: Goodbye! Don't forget to save your work.
+The chatbot can:
+
+* Remember the user’s name
+* Recall stored information
+* Respond to greetings
+* Tell programming jokes
+* Handle unknown messages with fallback responses
+* Exit safely when the user says goodbye
+
 ⸻
 
 How to Run
@@ -76,6 +71,7 @@ This project was created to practice:
 * User input handling
 * String manipulation
 * Basic chatbot logic
+* Program organization
 
 ⸻
 
@@ -88,6 +84,15 @@ Possible additions:
 * Ability to save memory between sessions
 * User customization options
 * Additional chatbot personalities
+* Improved conversation understanding
+
+⸻
+
+Disclaimer
+
+This is a simple educational chatbot created for programming practice.
+
+It does not use artificial intelligence or machine learning models. Responses are based on programmed keywords and predefined response options.
 
 ⸻
 
